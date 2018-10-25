@@ -1,0 +1,18 @@
+version: "3"
+services:
+  s3:
+    image: minio/minio
+    command: server /export
+    ports:
+    - "9000:9000"
+    environment:
+    - "MINIO_ACCESS_KEY=demoappdemo"
+    - "MINIO_SECRET_KEY=demoappdemo"
+  drill:
+    image: drill/apache-drill:1.14.0
+    command: /bin/bash
+    tty: true
+    ports:
+    - "8047:8047"
+    depends_on:
+    - s3
